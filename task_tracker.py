@@ -48,14 +48,15 @@ class Task:
                 json_data = json.load(file)
         except:
             json_data = []
-        print(json_data)
+
         for task in range(len(json_data)):
-            print(json_data[task])
             if json_data[task]["id"] == id:
                 del json_data[task]
+                print(f"Task Deleted ({id})")
+            else:
+                print("Task not found")
             with open('data.json', 'w') as file:
                 json.dump(json_data, file, indent=4)
-            print("deleted")
 
     def mark_in_progress(status, id):
         stat = ""
@@ -80,7 +81,9 @@ class Task:
 
 def input_parse_command(input):
     splited= input.split(" ")
-    return [splited[0], splited[1]]
+    if len(splited) > 1:
+        return [splited[0], splited[1]]
+    return splited
 
 def input_parse_description(input_str):
     # Split the input by spaces
@@ -112,4 +115,9 @@ if __name__ == "__main__":
             Task.mark_in_progress(command, id)
         if command == "delete":
             Task.delete_task(id)
-
+        if command == "help":
+            print("""add - add task to json file
+                  update - update exesting task""")
+        else:
+            print("Command Not found enter 'help' for more info")
+            
