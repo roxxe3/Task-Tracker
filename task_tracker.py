@@ -41,6 +41,22 @@ class Task:
             with open('data.json', 'w') as file:
                 json.dump(json_data, file, indent=4)
             print("updated")
+
+    def delete_task(id):
+        try:
+            with open("data.json", 'r') as file:
+                json_data = json.load(file)
+        except:
+            json_data = []
+        print(json_data)
+        for task in range(len(json_data)):
+            print(json_data[task])
+            if json_data[task]["id"] == id:
+                del json_data[task]
+            with open('data.json', 'w') as file:
+                json.dump(json_data, file, indent=4)
+            print("deleted")
+
     def mark_in_progress(status, id):
         stat = ""
         if status == "mark-in-progress":
@@ -64,7 +80,6 @@ class Task:
 
 def input_parse_command(input):
     splited= input.split(" ")
-    print(splited)
     return [splited[0], splited[1]]
 
 def input_parse_description(input_str):
@@ -95,4 +110,6 @@ if __name__ == "__main__":
             Task.update_task(id, description)
         if command == "mark-in-progress" or command == "mark-done":
             Task.mark_in_progress(command, id)
+        if command == "delete":
+            Task.delete_task(id)
 
