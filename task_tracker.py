@@ -59,6 +59,7 @@ class Task:
                 json.dump(json_data, file, indent=4)
 
     def mark_in_progress(status, id):
+        
         stat = ""
         if status == "mark-in-progress":
             stat = "in progress"
