@@ -1,71 +1,97 @@
-Task tracker is a project used to track and manage your tasks. In this task, you will build a simple command line interface (CLI) to track what you need to do, what you have done, and what you are currently working on. This project will help you practice your programming skills, including working with the filesystem, handling user inputs, and building a simple CLI application.
+# Task Management CLI
 
-Requirements
-The application should run from the command line, accept user actions and inputs as arguments, and store the tasks in a JSON file. The user should be able to:
+## Overview
 
-Add, Update, and Delete tasks
-Mark a task as in progress or done
-List all tasks
-List all tasks that are done
-List all tasks that are not done
-List all tasks that are in progress
-Here are some constraints to guide the implementation:
+This is a command-line interface (CLI) application for managing tasks. The application allows you to create, update, delete, and list tasks with various statuses.
 
-You can use any programming language to build this project.
-Use positional arguments in command line to accept user inputs.
-Use a JSON file to store the tasks in the current directory.
-The JSON file should be created if it does not exist.
-Use the native file system module of your programming language to interact with the JSON file.
-Do not use any external libraries or frameworks to build this project.
-Ensure to handle errors and edge cases gracefully.
-Example
-The list of commands and their usage is given below:
+## Features
 
-# Adding a new task
-task-cli add "Buy groceries"
-# Output: Task added successfully (ID: 1)
+- Add new tasks
+- Update existing tasks
+- Mark tasks as in progress
+- Delete tasks
+- List tasks (with optional filtering by status)
+- Simple and intuitive command-line interface
 
-# Updating and deleting tasks
-task-cli update 1 "Buy groceries and cook dinner"
-task-cli delete 1
+## Requirements
 
-# Marking a task as in progress or done
-task-cli mark-in-progress 1
-task-cli mark-done 1
+- Python 3.10+
+- Standard Python libraries (json, uuid, datetime)
 
-# Listing all tasks
-task-cli list
+## Installation
 
-# Listing tasks by status
-task-cli list done
-task-cli list todo
-task-cli list in-progress
-Task Properties
-Each task should have the following properties:
+1. Clone the repository
+2. Ensure you have Python 3.10 or higher installed
+3. No additional dependencies required
 
-id: A unique identifier for the task
-description: A short description of the task
-status: The status of the task (todo, in-progress, done)
-createdAt: The date and time when the task was created
-updatedAt: The date and time when the task was last updated
-Make sure to add these properties to the JSON file when adding a new task and update them when updating a task.
+## Usage
 
-Getting Started
-Here are a few steps to help you get started with the Task Tracker CLI project:
+### Available Commands
 
-Set Up Your Development Environment
-Choose a programming language you are comfortable with (e.g., Python, JavaScript, etc.).
-Ensure you have a code editor or IDE installed (e.g., VSCode, PyCharm).
-Project Initialization
-Create a new project directory for your Task Tracker CLI.
-Initialize a version control system (e.g., Git) to manage your project.
-Implementing Features
-Start by creating a basic CLI structure to handle user inputs.
-Implement each feature one by one, ensuring to test thoroughly before moving to the next e.g. implement adding task functionality first, listing next, then updating, marking as in progress, etc.
-Testing and Debugging
-Test each feature individually to ensure they work as expected. Look at the JSON file to verify that the tasks are being stored correctly.
-Debug any issues that arise during development.
-Finalizing the Project
-Ensure all features are implemented and tested.
-Clean up your code and add comments where necessary.
-Write a good readme file on how to use your Task Tracker CLI.
+- `add "Task description"`: Add a new task
+- `update <task-id> "New task description"`: Update an existing task
+- `mark-in-progress <task-id>`: Mark a task as in progress
+- `mark-done <task-id>`: Mark a task as completed
+- `delete <task-id>`: Delete a specific task
+- `list`: List all tasks
+- `list in-progress`: List tasks with 'in progress' status
+- `help`: Show available commands
+- `exit`: Exit the application
+
+### Examples
+
+```bash
+# Add a new task
+task-cli > add "Write project documentation"
+
+# Update an existing task
+task-cli > update 123e4567-e89b-12d3-a456-426614174000 "Update project documentation"
+
+# Mark a task as in progress
+task-cli > mark-in-progress 123e4567-e89b-12d3-a456-426614174000
+
+# Delete a task
+task-cli > delete 123e4567-e89b-12d3-a456-426614174000
+
+# List all tasks
+task-cli > list
+
+# List in-progress tasks
+task-cli > list in-progress
+```
+
+## Data Storage
+
+Tasks are stored in a `data.json` file in the following format:
+
+```json
+[
+    {
+        "id": "unique-uuid",
+        "description": "Task description",
+        "status": "in progress",
+        "createdAt": "timestamp",
+        "updatedAt": "timestamp"
+    }
+]
+```
+
+## Error Handling
+
+- The application handles file reading/writing errors gracefully
+- Provides clear error messages for invalid commands
+- Supports keyboard interrupt (Ctrl+C) for safe exit
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a new Pull Request
+
+
+## Author
+
+Hamza Fariss
+
