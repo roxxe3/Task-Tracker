@@ -35,12 +35,22 @@ class Task:
                 json_data = json.load(file)
         except:
             json_data = []
+            
+        task_found = False
         for task in json_data:
             if task["id"] == id:
                 task["description"] = description
-            with open('data.json', 'w') as file:
-                json.dump(json_data, file, indent=4)
-            print("updated")
+                task["updatedAt"] = str(datetime.datetime.now())
+                task_found = True
+                print("Task updated successfully")
+                break
+                
+        if not task_found:
+            print("Task not found")
+            
+        with open('data.json', 'w') as file:
+            json.dump(json_data, file, indent=4)
+
 
     def delete_task(id):
         try:
@@ -59,7 +69,7 @@ class Task:
                 json.dump(json_data, file, indent=4)
 
     def mark_in_progress(status, id):
-        
+
         stat = ""
         if status == "mark-in-progress":
             stat = "in progress"
@@ -77,7 +87,21 @@ class Task:
             with open('data.json', 'w') as file:
                 json.dump(json_data, file, indent=4)
             print("updated status")
-
+    
+    def list_tasks(status=None):
+        try:
+            with open("data.json", 'r') as file:
+                json_data = json.load(file)
+        except:
+            json_data = []
+        print(status)
+        if status != None:
+            for task in json_data:
+                if task["status"] == status:
+                    print(task["description"])
+        else:
+            for task in json_data:
+                print(task["description"])
 
 
 def input_parse_command(input):
@@ -101,24 +125,71 @@ def input_parse_description(input_str):
 
 
 if __name__ == "__main__":
-    while(True):
-        task = input('task-cli ')
-        parse = input_parse_command(task)
-        command, id = parse[0],parse[1]
-        description = input_parse_description(task.replace(command, ''))
-        if command == "add":
-            new_task = Task(description, "in progress")
-            new_task.add_task()
-            print(f"Task added successfully (ID: {new_task.id})")
-        if command == "update":
-            Task.update_task(id, description)
-        if command == "mark-in-progress" or command == "mark-done":
-            Task.mark_in_progress(command, id)
-        if command == "delete":
-            Task.delete_task(id)
-        if command == "help":
-            print("""add - add task to json file
-                  update - update exesting task""")
-        else:
-            print("Command Not found enter 'help' for more info")
+    COMMANDS = {
+        "add": "Add a new task",
+        "update": "Update an existing task",
+        "mark-in-progress": "Mark task as in progress",
+        "mark-done": "Mark task as completed",
+        "delete": "Delete a task",
+        "list": "List all tasks",
+        "help": "Show this help message",
+        "exit": "Exit the program"
+    }
+
+    while True:
+        try:
+            task = input('task-cli > ')  # Better prompt formatting
+            if task.lower() == 'exit':
+                print("Goodbye!")
+                break
+
+            parse = input_parse_command(task)
+            if not parse:
+                print("Invalid command. Type 'help' for available commands.")
+                continue
+
+            command = parse[0].lower()
+            id = parse[1] if len(parse) > 1 else ""
+            description = input_parse_description(task.replace(command, ''))
+
+            match command:  # Using match statement for better readability
+                case "add":
+                    new_task = Task(description, "in progress")
+                    new_task.add_task()
+                    print(f"Task added successfully (ID: {new_task.id})")
+                
+                case "update":
+                    if not id:
+                        print("Error: Task ID required for update")
+                        continue
+                    Task.update_task(id, description)
+                
+                case "mark-in-progress" | "mark-done":
+                    if not id:
+                        print("Error: Task ID required for marking status")
+                        continue
+                    Task.mark_in_progress(command, id)
+                
+                case "delete":
+                    if not id:
+                        print("Error: Task ID required for deletion")
+                        continue
+                    Task.delete_task(id)
+                
+                case "help":
+                    print("\nAvailable commands:")
+                    for cmd, desc in COMMANDS.items():
+                        print(f"  {cmd:<15} - {desc}")
+                
+                case "list":
+                    Task.list_tasks(id)
+                
+                case _:
+                    print("Command not found. Type 'help' for available commands.")
+
+        except KeyboardInterrupt:
+            print("\nGoodbye!")
+            break
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
             
