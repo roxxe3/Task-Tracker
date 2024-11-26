@@ -75,6 +75,8 @@ class Task:
             stat = "in progress"
         if status == "mark-done":
             stat = "done"
+        if status == "todo":
+            stat = "todo"
             
         try:
             with open("data.json", 'r') as file:
@@ -84,17 +86,19 @@ class Task:
         for task in json_data:
             if task["id"] == id:
                 task["status"] = stat
-            with open('data.json', 'w') as file:
-                json.dump(json_data, file, indent=4)
-            print("updated status")
+                print(f"updated to {stat}")
+        with open('data.json', 'w') as file:
+            json.dump(json_data, file, indent=4)
     
     def list_tasks(status=None):
+        if status == "in-progress":
+            status = "in progress"
         try:
             with open("data.json", 'r') as file:
                 json_data = json.load(file)
         except:
             json_data = []
-        print(status)
+        
         if status != None:
             for task in json_data:
                 if task["status"] == status:
@@ -138,7 +142,7 @@ if __name__ == "__main__":
 
     while True:
         try:
-            task = input('task-cli > ')  # Better prompt formatting
+            task = input('task-cli > ')
             if task.lower() == 'exit':
                 print("Goodbye!")
                 break
@@ -164,7 +168,7 @@ if __name__ == "__main__":
                         continue
                     Task.update_task(id, description)
                 
-                case "mark-in-progress" | "mark-done":
+                case "mark-in-progress" | "mark-done" | "todo":
                     if not id:
                         print("Error: Task ID required for marking status")
                         continue
@@ -183,6 +187,7 @@ if __name__ == "__main__":
                 
                 case "list":
                     Task.list_tasks(id)
+                    continue
                 
                 case _:
                     print("Command not found. Type 'help' for available commands.")
@@ -190,6 +195,4 @@ if __name__ == "__main__":
         except KeyboardInterrupt:
             print("\nGoodbye!")
             break
-        except Exception as e:
-            print(f"An error occurred: {str(e)}")
             

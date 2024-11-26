@@ -28,10 +28,80 @@
         "updatedAt": "2024-11-26 11:11:28.400309"
     },
     {
-        "id": "326771a4-e281-4239-baa7-498f8d85236c",
-        "description": "hamza",
-        "status": "done",
-        "createdAt": "2024-11-26 13:28:03.011903",
-        "updatedAt": "2024-11-26 13:28:03.011908"
+        "id": "47041169-af29-4605-b9d3-e243d20b8b4a",
+        "description": "Buy groceries and cook dinner",
+        "status": "todo",
+        "createdAt": "2024-11-26 18:17:29.594133",
+        "updatedAt": "2024-11-26 18:18:39.520794"
+    },
+    {
+        "id": "b9409b71-ce06-425c-9d57-baf377ef6ce9",
+        "description": "Test Task",
+        "status": "todo",
+        "createdAt": "2024-11-26 18:36:45.016168",
+        "updatedAt": "2024-11-26 18:36:45.016171"
+    },
+    {
+        "id": "da58d63d-b58b-4792-8770-44ebd5a94438",
+        "description": "Task 1",
+        "status": "todo",
+        "createdAt": "2024-11-26 18:36:45.048415",
+        "updatedAt": "2024-11-26 18:36:45.048417"
+    },
+    {
+        "id": "47e1e76e-6e3e-43fc-89d6-18eaa450ce7c",
+        "description": "Task 2",
+        "status": "in progress",
+        "createdAt": "2024-11-26 18:36:45.048422",
+        "updatedAt": "2024-11-26 18:36:45.048422"
+    },
+    {
+        "id": "d253d083-5311-4139-b067-e2d78f69dcce",
+        "description": "Task to Mark",
+        "status": "in progress",
+        "createdAt": "2024-11-26 18:36:45.064150",
+        "updatedAt": "2024-11-26 18:36:45.064153"
+    },
+    {
+        "id": "6936ffcc-5ea8-4978-b985-0ee9a6a1bd72",
+        "description": "New Description",
+        "status": "todo",
+        "createdAt": "2024-11-26 18:38:29.779012",
+        "updatedAt": "2024-11-26 18:38:29.791922"
+    },
+    {
+        "id": "8d4ee16c-e47a-4468-948b-23fc650acf35",
+        "description": "Test Task",
+        "status": "todo",
+        "createdAt": "2024-11-26 19:28:37.750294",
+        "updatedAt": "2024-11-26 19:28:37.750296"
+    },
+    {
+        "id": "f443141a-7f29-4401-a365-4ba46ab2f654",
+        "description": "Task 1",
+        "status": "todo",
+        "createdAt": "2024-11-26 19:28:37.788985",
+        "updatedAt": "2024-11-26 19:28:37.788988"
+    },
+    {
+        "id": "6db9b334-ba8b-40e2-afe4-ba2a2efe2d24",
+        "description": "Task 2",
+        "status": "in progress",
+        "createdAt": "2024-11-26 19:28:37.788992",
+        "updatedAt": "2024-11-26 19:28:37.788992"
+    },
+    {
+        "id": "674ec120-842c-4ab9-bb05-b9d372923fbe",
+        "description": "Task to Mark",
+        "status": "in progress",
+        "createdAt": "2024-11-26 19:28:37.805413",
+        "updatedAt": "2024-11-26 19:28:37.805417"
+    },
+    {
+        "id": "65cfbaa1-5612-49ee-a932-744fc527f7e1",
+        "description": "New Description",
+        "status": "todo",
+        "createdAt": "2024-11-26 19:28:37.824672",
+        "updatedAt": "2024-11-26 19:28:37.837645"
     }
 ]
