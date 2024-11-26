@@ -93,5 +93,5 @@ Tasks are stored in a `data.json` file in the following format:
 
 ## Author
 
-Hamza Fariss
+Hamza Farissi
 
