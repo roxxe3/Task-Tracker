@@ -4,12 +4,13 @@ import datetime
 
 
 class Task:
-    def __init__(self, description, status):
+    def __init__(self, description, status, file_name="data.json"):
         self.id = uuid.uuid4()
         self.description= description
         self.status = status
         self.createdAt= datetime.datetime.now()
         self.updatedAt= datetime.datetime.now()
+        self.file_name = file_name
     
     def add_task(self):
         
@@ -21,40 +22,34 @@ class Task:
             "updatedAt": f"{self.updatedAt}"
         }
         try:
-            with open("data.json", 'r') as file:
+            with open(self.file_name, 'r') as file:
                 json_data = json.load(file)
         except:
             json_data = []
         json_data.append(task_data)
-        with open('data.json', 'w') as file:
+        with open(self.file_name, 'w') as file:
             json.dump(json_data, file, indent=4)
 
-    def update_task(id, description):
+    @staticmethod
+    def update_task(task_id, new_description, file_name="data.json"):
         try:
-            with open("data.json", 'r') as file:
+            with open(file_name, "r") as file:
                 json_data = json.load(file)
         except:
             json_data = []
-            
-        task_found = False
+
         for task in json_data:
-            if task["id"] == id:
-                task["description"] = description
+            if task["id"] == task_id:
+                task["description"] = new_description
                 task["updatedAt"] = str(datetime.datetime.now())
-                task_found = True
-                print("Task updated successfully")
                 break
-                
-        if not task_found:
-            print("Task not found")
-            
-        with open('data.json', 'w') as file:
+        with open(file_name, "w") as file:
             json.dump(json_data, file, indent=4)
 
 
-    def delete_task(id):
+    def delete_task(id, file_name="data.json"):
         try:
-            with open("data.json", 'r') as file:
+            with open(file_name, 'r') as file:
                 json_data = json.load(file)
         except:
             json_data = []
@@ -65,39 +60,42 @@ class Task:
                 print(f"Task Deleted ({id})")
             else:
                 print("Task not found")
-            with open('data.json', 'w') as file:
+            with open(file_name, 'w') as file:
                 json.dump(json_data, file, indent=4)
 
-    def mark_in_progress(status, id):
-
-        stat = ""
-        if status == "mark-in-progress":
-            stat = "in progress"
-        if status == "mark-done":
-            stat = "done"
-        if status == "todo":
-            stat = "todo"
-            
+    @staticmethod
+    def mark_in_progress(task_id, file_name="data.json"):
         try:
-            with open("data.json", 'r') as file:
+            with open(file_name, "r") as file:
                 json_data = json.load(file)
         except:
             json_data = []
+
+        task_found = False
         for task in json_data:
-            if task["id"] == id:
-                task["status"] = stat
-                print(f"updated to {stat}")
-        with open('data.json', 'w') as file:
+            if task["id"] == task_id:
+                task["status"] = "in progress"
+                task["updatedAt"] = str(datetime.datetime.now())
+                task_found = True
+                break
+        
+        if not task_found:
+            print("task not found")
+            
+        with open(file_name, "w") as file:
             json.dump(json_data, file, indent=4)
     
-    def list_tasks(status=None):
+    def list_tasks(status=None, file_name="data.json"):
         if status == "in-progress":
             status = "in progress"
         try:
-            with open("data.json", 'r') as file:
+            with open(file_name, 'r') as file:
                 json_data = json.load(file)
         except:
             json_data = []
+        if not json_data:
+            print("No tasks found")
+            return
         
         if status != None:
             for task in json_data:
